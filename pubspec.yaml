@@ -1,0 +1,19 @@
+name: apac_solution_challenge
+description: APAC_solution_challenge Flutter project
+version: 1.0.0
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+  lints: ^5.1.1
+
+flutter:
+  uses-material-design: true

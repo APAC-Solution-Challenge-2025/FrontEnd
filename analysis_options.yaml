@@ -1,0 +1,19 @@
+include:
+    - package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - build/**
+    - lib/generated_plugin_registrant.dart
+
+linter:
+  rules:
+    - prefer_const_constructors # const 사용 권장
+    - avoid_print
+    - use_key_in_widget_constructors
+    - prefer_final_fields # 수정되지 않는 필드는 final 선언
+    - annotate_overrides # 부모 클래스나 인터페이스에서 정의된 메서드 재정의시 @override
+    - prefer_const_literals_to_create_immutables # 불변 객체 생성 시 const 권장
+    - prefer_typing_uninitialized_variables
+
+    # 디버깅용으로 ignore_for_file: <rule_name_1>, <rule_name_2> 이렇게 규칙 무효화 가능
