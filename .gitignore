@@ -1,8 +1,6 @@
-<<<<<<< HEAD
+# Miscellaneous
 windows/flutter/ephemeral/
 .dart_tool/
-=======
-# Miscellaneous
 *.class
 *.log
 *.pyc
@@ -59,4 +57,3 @@ macos/Flutter/ephemeral/
 .flutter-plugins-dependencies
 dart_tool/
 build/
->>>>>>> f3d3ff5 (Chore: 기본 프로젝트 세팅)
