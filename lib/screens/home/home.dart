@@ -15,15 +15,9 @@ class HomePage extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/page1');
+                Navigator.pushNamed(context, '/reportMainPage');
               },
-              child: const Text('Go to Page 1'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/page2');
-              },
-              child: const Text('Go to Page 2'),
+              child: const Text('Go to report main page'),
             ),
           ],
         ),
