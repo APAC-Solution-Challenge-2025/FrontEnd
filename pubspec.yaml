@@ -20,6 +20,9 @@ dev_dependencies:
     sdk: flutter
   lints: ^5.1.1
 
+assets:
+  assets/image/
+
 flutter:
   uses-material-design: true
   assets:
