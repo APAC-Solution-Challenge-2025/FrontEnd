@@ -1,3 +1,6 @@
+# Google OAuth 2.0
+.env
+
 # Miscellaneous
 *.class
 *.log

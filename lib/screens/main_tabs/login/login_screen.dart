@@ -1,8 +1,16 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter/material.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'dart:convert';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
+
+  final _storage = const FlutterSecureStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +49,52 @@ class LoginScreen extends StatelessWidget {
                       side: const BorderSide(color: Colors.grey),
                     ),
                   ),
-                  onPressed: () {
-                    // 여기에 구글 Oauth로그인 관련 코드
+                  // Google OAuth2.0
+                  onPressed: () async {
+                    final GoogleSignIn googleSignIn = GoogleSignIn(
+                      clientId:
+                          kIsWeb ? dotenv.env['GOOGLE_WEB_CLIENT_ID'] : null,
+                      scopes: ['email', 'profile'],
+                    );
+
+                    try {
+                      final GoogleSignInAccount? account =
+                          await googleSignIn.signIn();
+                      final GoogleSignInAuthentication auth =
+                          await account!.authentication;
+                      final accessToken = auth.accessToken;
+
+                      if (accessToken != null) {
+                        final response = await http.post(
+                          Uri.parse('http://localhost:8080/api/auth/google'),
+                          headers: {'Content-Type': 'application/json'},
+                          body: jsonEncode({'accessToken': accessToken}),
+                        );
+
+                        if (response.statusCode == 200) {
+                          print("로그인 성공");
+                          if (response.statusCode == 200) {
+                            final data = jsonDecode(response.body);
+                            final token = data['token'];
+                            final email = data['email'];
+                            final name = data['name'];
+
+                            await _storage.write(key: 'jwt', value: token);
+                            await _storage.write(key: 'email', value: email);
+                            await _storage.write(key: 'name', value: name);
+
+                            print("환영합니다 $name");
+                            // 토큰 저장 등 처리
+                          } else {
+                            print("로그인 실패");
+                          }
+                        } else {
+                          print("로그인 실패");
+                        }
+                      }
+                    } catch (e) {
+                      print("Google 로그인 중 오류: $e");
+                    }
                   },
                 ),
                 SizedBox(

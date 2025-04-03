@@ -8,8 +8,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_dotenv: ^5.1.0
   flutter_signin_button: ^2.0.0
+  google_sign_in: ^6.1.4
   sign_in_with_apple: ^5.0.0
+  http: ^0.13.6
+  flutter_secure_storage: ^9.0.0
 
 
 dev_dependencies:
@@ -23,4 +27,5 @@ flutter:
   assets:
     -  assets/images/login_page_img.png
     -  assets/images/google_logo.png
+    -  assets/.env
 

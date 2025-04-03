@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../routes.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(const MyApp());
 }
 
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       initialRoute: '/', // 초기 화면 설정
-      routes: AppRoutes.routes, // routes.dart 파일에서 설정한 경로를 가져오기
+      routes: AppRoutes.routes, // routes.dart 파일에서 설정한 경 로를 가져오기
     );
   }
 }
