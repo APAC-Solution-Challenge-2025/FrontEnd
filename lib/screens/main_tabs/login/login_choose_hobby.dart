@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../home/home.dart';
-import 'package:apac_solution_challenge/assets/widgets/buttons.dart';
+import 'package:apac_solution_challenge/widgets/buttons.dart';
 
 class InterestScreen extends StatefulWidget {
   const InterestScreen({super.key});
@@ -28,7 +28,7 @@ class _InterestScreenState extends State<InterestScreen> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'lib/assets/images/login_choose_hobby_page.png',
+              'assets/images/login_choose_hobby_page.png',
               fit: BoxFit.cover,
             ),
           ),
