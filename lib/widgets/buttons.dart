@@ -51,7 +51,7 @@ Widget nextButton(BuildContext context, Widget nextPage) {
       child: SizedBox(
           width: 135,
           child: Stack(children: [
-            Image.asset('lib/assets/images/next_button.png'),
+            Image.asset('assets/images/next_button.png'),
             Padding(
               padding: const EdgeInsets.fromLTRB(32, 28, 0, 0),
               child: Text(

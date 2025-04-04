@@ -11,7 +11,7 @@ class LoginScreen extends StatelessWidget {
         children: [
           SizedBox.expand(
             child: Image.asset(
-              'lib/assets/images/login_page_img.png',
+              'assets/images/login_page_img.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
                 ),
                 TextButton.icon(
                   icon: Image.asset(
-                    'lib/assets/images/google_logo.png',
+                    'assets/images/google_logo.png',
                     width: 24,
                     height: 24,
                   ),
