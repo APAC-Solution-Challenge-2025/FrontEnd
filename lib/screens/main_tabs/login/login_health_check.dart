@@ -11,12 +11,12 @@ class LoginHealthCheck extends StatefulWidget {
 
 class _LoginHealthCheckState extends State<LoginHealthCheck> {
   final List<List<String>> healthRows = [
-    ['피곤해요', '몸이 무거워요', '통증이 있어요', '수면이 부족해요'],
-    ['붓기가 있어요', '식욕이 없어요', '소화가 안돼요'],
-    ['우울해요', '불안해요', '예민해졌어요'],
-    ['외로워요', '짜증이 많아졌어요', '무기력해요'],
-    ['집중이 잘 안돼요', '공허해요', '내 자신이 낯설어요'],
-    ['괜찮아요', '조금은 여유로워요', '버틸 수 있어요'],
+    ['I feel tired', 'My body feels heavy', 'I have pain', 'I lack sleep'],
+    ['I feel swollen', 'I have no appetite', 'I have digestive issues'],
+    ['I feel depressed', 'I feel anxious', 'I’m irritable'],
+    ['I feel lonely', 'I get annoyed easily', 'I feel lethargic'],
+    ['I can’t concentrate', 'I feel empty', 'I don’t recognize myself'],
+    ['I’m okay', 'I feel a bit relaxed', 'I can hang in there'],
   ];
 
   final Set<String> selectedHealth = {};
