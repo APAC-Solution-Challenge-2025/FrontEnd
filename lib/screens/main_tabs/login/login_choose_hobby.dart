@@ -59,7 +59,7 @@ class _InterestScreenState extends State<InterestScreen> {
       'Solving puzzles',
       'Writing'
     ],
-  ]; // 이후 수정 예정
+  ];
 
   final Set<String> selectedInterests = {};
 
