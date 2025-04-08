@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_signin_button: ^2.0.0
-  sign_in_with_apple: ^5.0.0
+  sign_in_with_apple: ^6.1.4
 
 
 dev_dependencies:
@@ -23,4 +23,6 @@ flutter:
   assets:
     -  assets/images/login_page_img.png
     -  assets/images/google_logo.png
+    -  assets/images/login_choose_hobby_page.png
+    -  assets/images/next_button.png
 
