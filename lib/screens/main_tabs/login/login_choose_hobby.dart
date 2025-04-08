@@ -11,12 +11,54 @@ class InterestScreen extends StatefulWidget {
 
 class _InterestScreenState extends State<InterestScreen> {
   final List<List<String>> interestRows = [
-    ['독서', '애니메이션 감상', '마라탕', '카페 가기'],
-    ['드라마 보기', '조립하기', '드라이브', '운동'],
-    ['맛집 찾기', '그림 그리기', '산책', '보드게임'],
-    ['사진 찍기', '코딩', '음악 감상', '요가'],
-    ['노래 듣기', '아이스크림', '유튜브', '노래방'],
-    ['된장찌개', '춤추기', '페이퍼 시어터', '만화책 모으기'],
+    [
+      'Reading',
+      'Watching anime',
+      'Going to cafés',
+      'Painting',
+      'Journaling',
+      'Watching movies'
+    ],
+    [
+      'Watching dramas',
+      'Building models',
+      'Driving',
+      'Working out',
+      'Baking',
+      'Gardening'
+    ],
+    [
+      'Exploring restaurants',
+      'Drawing',
+      'Taking walks',
+      'Camping',
+      'Board games',
+      'Picnicking'
+    ],
+    [
+      'Photography',
+      'Coding',
+      'Listening to music',
+      'Doing yoga',
+      'Making playlists',
+      'Playing piano'
+    ],
+    [
+      'Listening to songs',
+      'Ice cream',
+      'YouTube',
+      'Karaoke',
+      'Dancing',
+      'Playing games'
+    ],
+    [
+      'Interior decorating',
+      'Shopping',
+      'Crafts',
+      'Collecting comics',
+      'Solving puzzles',
+      'Writing'
+    ],
   ]; // 이후 수정 예정
 
   final Set<String> selectedInterests = {};
