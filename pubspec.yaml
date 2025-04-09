@@ -8,13 +8,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-<<<<<<< HEAD
   intl: ^0.17.0
-=======
   flutter_signin_button: ^2.0.0
   sign_in_with_apple: ^6.1.4
 
->>>>>>> 0c0f55effd66992f945c06c34c6f3bd1cfdb759a
 
 dev_dependencies:
   flutter_lints: ^5.0.0

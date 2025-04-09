@@ -19,6 +19,12 @@ class HomePage extends StatelessWidget {
               },
               child: const Text('Go to report main page'),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/loginMainPage');
+              },
+              child: const Text('Go to login main page'),
+            ),
           ],
         ),
       ),
