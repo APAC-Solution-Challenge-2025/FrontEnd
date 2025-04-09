@@ -8,6 +8,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: ^0.17.0
+  flutter_signin_button: ^2.0.0
+  sign_in_with_apple: ^6.1.4
+
 
 dev_dependencies:
   flutter_lints: ^5.0.0
@@ -15,5 +19,9 @@ dev_dependencies:
     sdk: flutter
   lints: ^5.1.1
 
+assets:
+  assets/images/
+
 flutter:
   uses-material-design: true
+  assets:
