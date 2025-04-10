@@ -126,7 +126,7 @@ class _InterestScreenState extends State<InterestScreen> {
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: Color(0xFFFFFFFF)),
+                          color: Colors.white),
                     ),
                   ),
                   SizedBox(height: 33),
