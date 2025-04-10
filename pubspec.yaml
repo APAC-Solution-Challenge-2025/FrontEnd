@@ -8,6 +8,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  intl: ^0.17.0
   flutter_signin_button: ^2.0.0
   sign_in_with_apple: ^6.1.4
 
@@ -18,6 +19,9 @@ dev_dependencies:
     sdk: flutter
   lints: ^5.1.1
 
+assets:
+  assets/images/
+
 flutter:
   uses-material-design: true
   assets:
@@ -26,4 +30,3 @@ flutter:
     -  assets/images/login_choose_hobby_page.png
     -  assets/images/next_button.png
     -  assets/images/login_health_check_page.png
-
