@@ -16,8 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/home', // 이후 아래 코드로 대체 예정 우선 개발 중인 화면 띄우기 위함
-      // home: const Layout(), // 초기 화면 설정
+      home: const Layout(), // 초기 화면 설정
       routes: AppRoutes.routes, // routes.dart 파일에서 설정한 경로를 가져오기
     );
   }
