@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'routes.dart';
 import 'widgets/layout.dart';
-import 'screens/main_tabs/login/login_birth_method_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,9 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginBirthMethodPage(),
-      // home: const Layout(),
-      // routes: AppRoutes.routes, // routes.dart 파일에서 설정한 경로를 가져오기
+      home: const Layout(),
+      routes: AppRoutes.routes, // routes.dart 파일에서 설정한 경로를 가져오기
     );
   }
 }
