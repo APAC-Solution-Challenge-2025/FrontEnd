@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 import '../routes.dart';
+import 'provider/calendar_data.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CalendarData(),
+      child: const MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
