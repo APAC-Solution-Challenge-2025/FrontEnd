@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'routes.dart';
 import 'widgets/layout.dart';
 import 'screens/main_tabs/login/login_body_change_info.dart';
+=======
+import '../routes.dart';
+import 'provider/calendar_data.dart';
+import 'package:provider/provider.dart';
+>>>>>>> e5bee4c (Feat: 달성률에 따른 이미지 기능 추가)
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => CalendarData(),
+      child: const MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
