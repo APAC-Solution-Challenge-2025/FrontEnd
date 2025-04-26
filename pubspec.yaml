@@ -12,6 +12,7 @@ dependencies:
   flutter_signin_button: ^2.0.0
   sign_in_with_apple: ^6.1.4
   table_calendar: ^3.0.8
+  provider: ^6.1.0
 
 
 dev_dependencies:
