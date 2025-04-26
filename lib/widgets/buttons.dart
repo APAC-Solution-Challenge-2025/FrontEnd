@@ -38,11 +38,15 @@ Widget selectButton({
   );
 }
 
-Widget nextButton(BuildContext context, Widget nextPage) {
+Widget nextButton(BuildContext context, Widget nextPage,
+    {VoidCallback? onPressed}) {
   return Align(
     alignment: Alignment.bottomRight,
     child: GestureDetector(
       onTap: () {
+        if (onPressed != null) {
+          onPressed();
+        }
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => nextPage),
