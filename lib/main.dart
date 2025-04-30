@@ -14,7 +14,6 @@ void main() {
   );
 }
 
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -25,14 +24,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-<<<<<<< HEAD
-      home: BodyInfoScreen(),
-      // home: const Layout(),
-      // routes: AppRoutes.routes, // routes.dart 파일에서 설정한 경로를 가져오기
-=======
       home: const Layout(), // 초기 화면 설정
       routes: AppRoutes.routes, // routes.dart 파일에서 설정한 경로를 가져오기
->>>>>>> develop
     );
   }
 }
