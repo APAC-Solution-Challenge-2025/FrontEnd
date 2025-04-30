@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'navibar.dart';
 import '../screens/home/home.dart';
-import '../screens/main_tabs/page1.dart';
+import '../screens/main_tabs/report/report_main_page.dart';
 import '../screens/main_tabs/page2.dart';
 
 class Layout extends StatefulWidget {
@@ -16,7 +16,7 @@ class _LayoutState extends State<Layout> {
 
   final List<Widget> _pages = const [
     HomePage(),
-    Page1(),
+    ReportMainPage(),
     Page2(),
   ];
 
