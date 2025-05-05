@@ -174,7 +174,7 @@ class _ReportMainPageState extends State<ReportMainPage> {
                                           ? () {
                                               Navigator.pushNamed(
                                                 context,
-                                                '/reportDetailPage',
+                                                '/calendarDetail',
                                                 arguments: DateTime(
                                                   now.year,
                                                   now.month,
