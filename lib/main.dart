@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../routes.dart';
 import 'provider/calendar_data.dart';
 import 'package:provider/provider.dart';
-import 'widgets/layout.dart';
+import 'screens/home/splash_screen.dart';
 
 void main() {
   runApp(
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Layout(), // 초기 화면 설정
+      home: const SplashScreen(), // 초기 화면 설정
       routes: AppRoutes.routes, // routes.dart 파일에서 설정한 경로를 가져오기
     );
   }
