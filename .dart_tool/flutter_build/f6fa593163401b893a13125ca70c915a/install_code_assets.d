@@ -1,0 +1,1 @@
+ C:\\Users\\User\\ForkProjects\\apac-solution-challenge\\FrontEnd\\.dart_tool\\flutter_build\\f6fa593163401b893a13125ca70c915a\\native_assets.json: 
