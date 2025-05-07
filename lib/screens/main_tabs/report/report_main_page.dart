@@ -43,8 +43,8 @@ class _ReportMainPageState extends State<ReportMainPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(
-              "Callendar",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              "Calendar",
+              style: TextStyle(fontSize: 24,),
             ),
             ElevatedButton.icon(
               onPressed: () {

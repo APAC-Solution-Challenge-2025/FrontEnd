@@ -13,6 +13,8 @@ dependencies:
   sign_in_with_apple: ^6.1.4
   table_calendar: ^3.0.8
   provider: ^6.1.0
+  shared_preferences: ^2.5.3
+  firebase_messaging: ^15.2.5
 
 
 dev_dependencies:

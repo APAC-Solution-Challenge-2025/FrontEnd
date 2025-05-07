@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import '../routes.dart';
 import 'provider/calendar_data.dart';
+import 'provider/notification_provider.dart';
 import 'package:provider/provider.dart';
 import 'screens/home/splash_screen.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => CalendarData(),
-      child: const MyApp(),
-    ),
+    MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => CalendarData()),
+            ChangeNotifierProvider(create: (_) => NotificationProvider()),
+          ],
+          child: const MyApp(),
+        ),
   );
 }
 
