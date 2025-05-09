@@ -1,0 +1,32 @@
+name: apac_solution_challenge
+description: APAC_solution_challenge Flutter project
+version: 1.0.0
+
+environment:
+  sdk: ">=2.18.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: ^0.17.0
+  flutter_signin_button: ^2.0.0
+  sign_in_with_apple: ^6.1.4
+  table_calendar: ^3.0.8
+  provider: ^6.1.0
+  shared_preferences: ^2.5.3
+  firebase_messaging: ^15.2.5
+
+
+dev_dependencies:
+  flutter_lints: ^5.0.0
+  flutter_test:
+    sdk: flutter
+  lints: ^5.1.1
+
+assets:
+  assets/images/
+
+flutter:
+  uses-material-design: true
+  assets:
+    -  assets/images/
