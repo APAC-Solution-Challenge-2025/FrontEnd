@@ -1,4 +1,7 @@
 # Miscellaneous
+
+windows/flutter/ephemeral/
+.dart_tool/
 *.class
 *.log
 *.pyc
@@ -49,9 +52,6 @@ android/local.properties
 
 # MacOS 임시 파일
 macos/Flutter/ephemeral/
-
-# Windows 임시 파일
-windows/flutter/ephemeral/
 
 # Flutter 환경 자동 생성 파일
 .flutter-plugins

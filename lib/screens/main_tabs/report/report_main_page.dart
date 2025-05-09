@@ -12,10 +12,10 @@ class ReportMainPage extends StatefulWidget {
 
 class _ReportMainPageState extends State<ReportMainPage> {
   DateTime selectedDate = DateTime.now(); // 선택된 날짜 (초기값: 오늘)
-  
+
   @override
   Widget build(BuildContext context) {
-  final calendarData = Provider.of<CalendarData>(context);
+    final calendarData = Provider.of<CalendarData>(context);
 
     DateTime now = selectedDate;
     int days = daysInMonth(now);
@@ -43,8 +43,10 @@ class _ReportMainPageState extends State<ReportMainPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text(
-              "Callendar",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              "Calendar",
+              style: TextStyle(
+                fontSize: 24,
+              ),
             ),
             ElevatedButton.icon(
               onPressed: () {
@@ -60,7 +62,8 @@ class _ReportMainPageState extends State<ReportMainPage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFBEC5A4),
                 foregroundColor: Colors.black,
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
@@ -199,74 +202,107 @@ class _ReportMainPageState extends State<ReportMainPage> {
                                               alignment: Alignment.topCenter,
                                               width: 40,
                                               height: 70,
-                                              padding: const EdgeInsets.only(top: 5),
+                                              padding:
+                                                  const EdgeInsets.only(top: 5),
                                               decoration: const BoxDecoration(
                                                 color: Colors.white,
                                               ),
                                               child: Stack(
                                                 alignment: Alignment.center,
                                                 children: [
-                                                  if (dates[weekIndex * 7 + i] != null &&
-                                                    DateTime(
-                                                      now.year,
-                                                      now.month,
-                                                      dates[weekIndex * 7 + i]!,
-                                                    ).day ==
-                                                        DateTime.now().day &&
-                                                    now.month == DateTime.now().month &&
-                                                    now.year == DateTime.now().year)
+                                                  if (dates[weekIndex * 7 +
+                                                              i] !=
+                                                          null &&
+                                                      DateTime(
+                                                            now.year,
+                                                            now.month,
+                                                            dates[
+                                                                weekIndex * 7 +
+                                                                    i]!,
+                                                          ).day ==
+                                                          DateTime.now().day &&
+                                                      now.month ==
+                                                          DateTime.now()
+                                                              .month &&
+                                                      now.year ==
+                                                          DateTime.now().year)
                                                     Container(
                                                       width: 30,
                                                       height: 30,
-                                                      decoration: const BoxDecoration(
+                                                      decoration:
+                                                          const BoxDecoration(
                                                         shape: BoxShape.circle,
-                                                        color: Color(0xFFBEC5A4),
+                                                        color:
+                                                            Color(0xFFBEC5A4),
                                                       ),
                                                     ),
                                                   // 텍스트를 원 위에 렌더링
                                                   Text(
-                                                    dates[weekIndex * 7 + i]?.toString() ?? "",
+                                                    dates[weekIndex * 7 + i]
+                                                            ?.toString() ??
+                                                        "",
                                                     style: TextStyle(
                                                       fontSize: 14,
-                                                      color: dates[weekIndex * 7 + i] != null &&
+                                                      color: dates[weekIndex *
+                                                                          7 +
+                                                                      i] !=
+                                                                  null &&
                                                               DateTime(
-                                                                now.year,
-                                                                now.month,
-                                                                dates[weekIndex * 7 + i]!,
-                                                              ).weekday == 7
-                                                          ? Colors.blue
-                                                          : dates[weekIndex * 7 + i] != null &&
-                                                                  DateTime(
                                                                     now.year,
                                                                     now.month,
-                                                                    dates[weekIndex * 7 + i]!,
-                                                                  ).weekday == 1
+                                                                    dates[weekIndex *
+                                                                            7 +
+                                                                        i]!,
+                                                                  ).weekday ==
+                                                                  7
+                                                          ? Colors.blue
+                                                          : dates[weekIndex * 7 +
+                                                                          i] !=
+                                                                      null &&
+                                                                  DateTime(
+                                                                        now.year,
+                                                                        now.month,
+                                                                        dates[weekIndex *
+                                                                                7 +
+                                                                            i]!,
+                                                                      ).weekday ==
+                                                                      1
                                                               ? Colors.red
                                                               : Colors.black,
                                                     ),
                                                   ),
                                                 ],
                                               ),
-                                            ),               
-                                            
+                                            ),
+
                                             // 목표 달성 이미지
                                             Builder(builder: (context) {
-                                              String dateKey = "${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${dates[weekIndex * 7 + i]?.toString().padLeft(2, '0') ?? '00'}";
-                                              int progress = calendarData.getProgress(dateKey);
+                                              String dateKey =
+                                                  "${now.year.toString().padLeft(4, '0')}-${now.month.toString().padLeft(2, '0')}-${dates[weekIndex * 7 + i]?.toString().padLeft(2, '0') ?? '00'}";
+                                              int progress = calendarData
+                                                  .getProgress(dateKey);
 
                                               Widget? progressImage;
                                               switch (progress) {
                                                 case 0:
-                                                  progressImage = Image.asset('assets/images/step0.png', width: 30);
+                                                  progressImage = Image.asset(
+                                                      'assets/images/step0.png',
+                                                      width: 30);
                                                   break;
                                                 case 1:
-                                                  progressImage = Image.asset('assets/images/step1.png', width: 30);
+                                                  progressImage = Image.asset(
+                                                      'assets/images/step1.png',
+                                                      width: 30);
                                                   break;
                                                 case 2:
-                                                  progressImage = Image.asset('assets/images/step2.png', width: 30);
+                                                  progressImage = Image.asset(
+                                                      'assets/images/step2.png',
+                                                      width: 30);
                                                   break;
                                                 case 3:
-                                                  progressImage = Image.asset('assets/images/step3.png', width: 30);
+                                                  progressImage = Image.asset(
+                                                      'assets/images/step3.png',
+                                                      width: 30);
                                                   break;
                                                 default:
                                                   progressImage = null;
@@ -274,7 +310,8 @@ class _ReportMainPageState extends State<ReportMainPage> {
 
                                               return Positioned(
                                                 top: 35,
-                                                child: progressImage ?? const SizedBox.shrink(),
+                                                child: progressImage ??
+                                                    const SizedBox.shrink(),
                                               );
                                             }),
                                           ],
@@ -304,123 +341,122 @@ class _ReportMainPageState extends State<ReportMainPage> {
   }
 
   Future<void> _selectDate(BuildContext context) async {
-  final selected = await showDialog<DateTime>(
-    context: context,
-    builder: (BuildContext context) {
-      int tempYear = selectedDate.year;
-      int tempMonth = selectedDate.month;
-      final screenHeight = MediaQuery.of(context).size.height;
+    final selected = await showDialog<DateTime>(
+      context: context,
+      builder: (BuildContext context) {
+        int tempYear = selectedDate.year;
+        int tempMonth = selectedDate.month;
+        final screenHeight = MediaQuery.of(context).size.height;
 
-      return AlertDialog(
-        backgroundColor: const Color(0xFFFFFAF6),
-        title: const Text(
-          'Select Year & Month',
-        ),
-        content: StatefulBuilder(
-          builder: (context, setInnerState) {
-            return SizedBox(
-              height: screenHeight * 0.1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      // 연도 드롭다운
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 8),
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade400),
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white,
-                          ),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<int>(
-                              isExpanded: true,
-                              value: tempYear,
-                              items: [
-                                for (int year = 2000; year <= 2100; year++)
-                                  DropdownMenuItem(
-                                    value: year,
-                                    child: Text('$year'),
-                                  )
-                              ],
-                              onChanged: (value) {
-                                if (value != null) {
-                                  setInnerState(() {
-                                    tempYear = value;
-                                  });
-                                }
-                              },
+        return AlertDialog(
+          backgroundColor: const Color(0xFFFFFAF6),
+          title: const Text(
+            'Select Year & Month',
+          ),
+          content: StatefulBuilder(
+            builder: (context, setInnerState) {
+              return SizedBox(
+                height: screenHeight * 0.1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        // 연도 드롭다운
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(right: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey.shade400),
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white,
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<int>(
+                                isExpanded: true,
+                                value: tempYear,
+                                items: [
+                                  for (int year = 2000; year <= 2100; year++)
+                                    DropdownMenuItem(
+                                      value: year,
+                                      child: Text('$year'),
+                                    )
+                                ],
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    setInnerState(() {
+                                      tempYear = value;
+                                    });
+                                  }
+                                },
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      // 월 드롭다운
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 8),
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey.shade400),
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white,
-                          ),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<int>(
-                              isExpanded: true,
-                              value: tempMonth,
-                              items: [
-                                for (int month = 1; month <= 12; month++)
-                                  DropdownMenuItem(
-                                    value: month,
-                                    child: Text(month.toString().padLeft(2, '0')),
-                                  )
-                              ],
-                              onChanged: (value) {
-                                if (value != null) {
-                                  setInnerState(() {
-                                    tempMonth = value;
-                                  });
-                                }
-                              },
+                        // 월 드롭다운
+                        Expanded(
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey.shade400),
+                              borderRadius: BorderRadius.circular(8),
+                              color: Colors.white,
+                            ),
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton<int>(
+                                isExpanded: true,
+                                value: tempMonth,
+                                items: [
+                                  for (int month = 1; month <= 12; month++)
+                                    DropdownMenuItem(
+                                      value: month,
+                                      child: Text(
+                                          month.toString().padLeft(2, '0')),
+                                    )
+                                ],
+                                onChanged: (value) {
+                                  if (value != null) {
+                                    setInnerState(() {
+                                      tempMonth = value;
+                                    });
+                                  }
+                                },
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            );
-          },
-        ),
-        actions: [
-          TextButton(
-            child: const Text(
-              'Confirm',
-              style: TextStyle(
-                color: Colors.black,
+                      ],
+                    ),
+                  ],
                 ),
-            ),
-            onPressed: () {
-              Navigator.of(context).pop(DateTime(tempYear, tempMonth, 1));
+              );
             },
           ),
-        ],
-      );
+          actions: [
+            TextButton(
+              child: const Text(
+                'Confirm',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop(DateTime(tempYear, tempMonth, 1));
+              },
+            ),
+          ],
+        );
+      },
+    );
 
-    },
-  );
-
-  if (selected != null) {
-    setState(() {
-      selectedDate = selected;
-    });
+    if (selected != null) {
+      setState(() {
+        selectedDate = selected;
+      });
+    }
   }
-}
-
 
   int daysInMonth(DateTime date) {
     var nextMonth = (date.month < 12)
