@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../home/home.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
+import 'login_health_check.dart';
 
 class InterestScreen extends StatefulWidget {
   const InterestScreen({super.key});
@@ -147,9 +148,8 @@ class _InterestScreenState extends State<InterestScreen> {
                   if (selectedInterests.length >= 3)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 90, 0, 0),
-                      child: nextButton(context, const HomePage()),
+                      child: nextButton(context, LoginHealthCheck()),
                     )
-                  //일시적으로 home.dart로 넘어가게 설정해둠! 이후에 수정 예정
                 ],
               ),
             ),

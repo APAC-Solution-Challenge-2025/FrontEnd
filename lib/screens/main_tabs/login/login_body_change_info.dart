@@ -1,5 +1,5 @@
+import 'package:apac_solution_challenge/widgets/layout.dart';
 import 'package:flutter/material.dart';
-import '../../home/home.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
 
 class BodyInfoScreen extends StatefulWidget {
@@ -91,8 +91,7 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
           Positioned(
             bottom: 40,
             right: 20,
-            child: nextButton(
-                context, const HomePage()), // 일시적으로 HomePage로 이동하도록 설정!
+            child: nextButton(context, const Layout()),
           ),
         ],
       ),

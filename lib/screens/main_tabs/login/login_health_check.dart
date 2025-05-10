@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../home/home.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
+import 'login_choose_date.dart';
 
 class LoginHealthCheck extends StatefulWidget {
   const LoginHealthCheck({super.key});
@@ -119,7 +120,7 @@ class _LoginHealthCheckState extends State<LoginHealthCheck> {
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 30),
                       //추후 이러한 방식으로 버튼 위치 고정...수정 예정
-                      child: nextButton(context, const HomePage()),
+                      child: nextButton(context, LoginChooseDate()),
                       // 우선 Homepage로 가는 것으로 임시 설정 이후 수정 예정
                     ),
                   ),

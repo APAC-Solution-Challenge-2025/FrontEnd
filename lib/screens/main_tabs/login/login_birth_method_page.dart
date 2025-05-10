@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../home/home.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
+import 'login_body_change_info.dart';
 
 class LoginBirthMethodPage extends StatefulWidget {
   const LoginBirthMethodPage({super.key});
@@ -110,8 +111,7 @@ class _LoginBirthMethodPageState extends State<LoginBirthMethodPage> {
                     vertical: MediaQuery.of(context).size.height * 0.01,
                     horizontal: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  child: nextButton(context, const HomePage(), onPressed: () {
-                    //추가적으로 임시로 HomePage()로 가게 해두었는데 이 또한 수정 예정
+                  child: nextButton(context, BodyInfoScreen(), onPressed: () {
                     if (selectedMethod != null) {
                       print('보낼 날짜: $selectedMethod');
                       //이후 프린트는 삭제 예정

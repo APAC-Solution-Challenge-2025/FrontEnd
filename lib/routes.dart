@@ -8,7 +8,7 @@ import 'screens/main_tabs/page2.dart';
 class AppRoutes {
   static final Map<String, WidgetBuilder> routes = {
     '/home': (context) => const HomePage(),
-    '/settings' : (context) => const SettingPage(),
+    '/settings': (context) => const SettingPage(),
     '/calendar': (context) => const ReportMainPage(),
     '/calendarDetail': (context) => const ReportDetailPage(),
     '/chat': (context) => const Page2(),
