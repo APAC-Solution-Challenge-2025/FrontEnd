@@ -8,15 +8,14 @@ import 'screens/home/splash_screen.dart';
 void main() {
   runApp(
     MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => CalendarData()),
-            ChangeNotifierProvider(create: (_) => NotificationProvider()),
-          ],
-          child: const MyApp(),
-        ),
+      providers: [
+        ChangeNotifierProvider(create: (_) => CalendarData()),
+        ChangeNotifierProvider(create: (_) => NotificationProvider()),
+      ],
+      child: const MyApp(),
+    ),
   );
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
