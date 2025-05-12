@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'login_user_select_page.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -43,6 +44,13 @@ class LoginScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     // 여기에 구글 Oauth로그인 관련 코드
+                    // 만일 성공한다면 넘어가도록 추후 구현 예정정
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginUserSelect(),
+                      ),
+                    );
                   },
                 ),
                 SizedBox(
@@ -54,6 +62,13 @@ class LoginScreen extends StatelessWidget {
                   child: SignInWithAppleButton(
                     onPressed: () {
                       // 여기에 애플 로그인 Oauth관련 코드
+                      // 만일 성공한다면 넘어가도록 추후 구현 예정정
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginUserSelect(),
+                        ),
+                      );
                     },
                     style: SignInWithAppleButtonStyle.black,
                     borderRadius: BorderRadius.circular(8),
@@ -83,6 +98,13 @@ class LoginScreen extends StatelessWidget {
                   ),
                   onPressed: () {
                     // 여기에 페이스북 Oauth로그인 관련 코드
+                    // 만일 성공한다면 넘어가도록 추후 구현 예정정
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginUserSelect(),
+                      ),
+                    );
                   },
                 ),
                 SizedBox(

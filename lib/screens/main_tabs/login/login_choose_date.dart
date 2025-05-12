@@ -1,8 +1,10 @@
+import 'package:apac_solution_challenge/screens/main_tabs/login/login_birth_method_page.dart';
 import 'package:flutter/material.dart';
 import '../../home/home.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import 'login_body_change_info.dart';
 
 class LoginChooseDate extends StatefulWidget {
   const LoginChooseDate({super.key});
@@ -113,7 +115,7 @@ class _LoginChooseDateState extends State<LoginChooseDate> {
               padding: const EdgeInsets.fromLTRB(0, 0, 23, 50),
               child: nextButton(
                 context,
-                const HomePage(),
+                LoginBirthMethodPage(),
                 onPressed: () {
                   print('보낼 날짜: $formattedDate');
                   // 일시적으로 확인을 위해 print()문을 추가해두었습니다! 이후 삭제 예정
