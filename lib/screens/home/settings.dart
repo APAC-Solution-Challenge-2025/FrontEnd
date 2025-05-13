@@ -48,7 +48,7 @@ class _SettingPageState extends State<SettingPage> {
               children: [
                 Container(
                   width: screenWidth * 0.85,
-                  height: screenHeight * 0.2,
+                  height: screenHeight * 0.18,
                   alignment: Alignment.centerLeft,
                   padding: EdgeInsets.only(
                       top: screenHeight * 0.02, left: screenWidth * 0.05),
@@ -116,7 +116,7 @@ class _SettingPageState extends State<SettingPage> {
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 Container(
                     width: screenWidth * 0.85,
-                    height: screenHeight * 0.2,
+                    height: screenHeight * 0.18,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20),
@@ -277,7 +277,7 @@ class _SettingPageState extends State<SettingPage> {
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 Container(
                   width: screenWidth * 0.85,
-                  height: screenHeight * 0.16,
+                  height: screenHeight * 0.15,
                   padding: EdgeInsets.only(left: screenWidth * 0.025),
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -317,7 +317,7 @@ class _SettingPageState extends State<SettingPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       SizedBox(
-                                        width: screenWidth * 0.7,
+                                        width: screenWidth * 0.6,
                                         child: const Text("Turn on All",
                                             style: TextStyle(fontSize: 14)),
                                       ),
@@ -356,7 +356,7 @@ class _SettingPageState extends State<SettingPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       SizedBox(
-                                        width: screenWidth * 0.7,
+                                        width: screenWidth * 0.6,
                                         child: const Text("Morning Check-in",
                                             style: TextStyle(fontSize: 14)),
                                       ),
@@ -395,7 +395,7 @@ class _SettingPageState extends State<SettingPage> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       SizedBox(
-                                        width: screenWidth * 0.7,
+                                        width: screenWidth * 0.6,
                                         child: const Text("Goal Reminder",
                                             style: TextStyle(fontSize: 14)),
                                       ),
@@ -426,7 +426,7 @@ class _SettingPageState extends State<SettingPage> {
                         TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                 Container(
                   width: screenWidth * 0.85,
-                  height: screenHeight * 0.11,
+                  height: screenHeight * 0.1,
                   padding: EdgeInsets.only(left: screenWidth * 0.025),
                   decoration: BoxDecoration(
                     color: Colors.white,
