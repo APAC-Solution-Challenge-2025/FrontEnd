@@ -15,6 +15,8 @@ dependencies:
   provider: ^6.1.0
   shared_preferences: ^2.5.3
   firebase_messaging: ^15.2.5
+  carousel_slider: ^5.0.0
+  url_launcher: ^6.3.1
 
 dev_dependencies:
   flutter_lints: ^5.0.0
