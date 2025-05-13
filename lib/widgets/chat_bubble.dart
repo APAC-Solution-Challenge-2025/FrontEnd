@@ -80,9 +80,9 @@ class AIBubble extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(15),
+                        topLeft: Radius.circular(0),
                         topRight: Radius.circular(15),
-                        bottomLeft: Radius.circular(0),
+                        bottomLeft: Radius.circular(15),
                         bottomRight: Radius.circular(15),
                       ),
                       boxShadow: [

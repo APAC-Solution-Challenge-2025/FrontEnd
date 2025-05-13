@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '/../widgets/chat_bubble.dart';
+import '/provider/chat_api.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
@@ -13,6 +14,8 @@ class _ChatPageState extends State<ChatPage> {
   final List<Widget> chatWidgets = [];
   final TextEditingController controller = TextEditingController();
   final ScrollController scrollController = ScrollController();
+  final ChatApi api = ChatApi();
+  final String userId = "test"; // 임시로 userId를 test로 설정
 
   void handleUserInput(String text) async {
     if (text.trim().isEmpty) return;
@@ -24,34 +27,35 @@ class _ChatPageState extends State<ChatPage> {
     controller.clear();
     scrollToBottom();
 
-    final aiReply = await tmpAIResponse(text);
-
-    setState(() {
-      chatWidgets.add(
-        AIBubble(
-          text: aiReply.message,
-          isgoal: aiReply.isgoal,
-          onChoiceSelected: (choice) {
-            // 사용자가 버튼으로 선택한 게 잘 저장되엇는가를 확인
-            handleUserInput(choice);
-          },
-        ),
-      );
-    });
+    try {
+      final String aiReply = await api.sendChat(userId: userId, prompt: text);
+      final bool suggestGoal =
+          aiReply.contains('goal'); // 우선은 goal이 text 내에 들어간다면 버튼이 나오도록 설정
+      setState(() {
+        chatWidgets.add(
+          AIBubble(
+            text: aiReply,
+            isgoal: suggestGoal,
+            onChoiceSelected: handleUserInput,
+          ),
+        );
+      });
+    } catch (e) {
+      setState(() {
+        chatWidgets.add(
+          AIBubble(
+            text: 'ERROR',
+            isgoal: false,
+            onChoiceSelected: (_) {},
+          ),
+        );
+      });
+    }
     scrollToBottom();
   }
 
-  Future<AIResponse> tmpAIResponse(String userInput) async {
-    // 임시로!! AI 쪽에서 보내 줄 거...
-    await Future.delayed(const Duration(seconds: 1));
-    return AIResponse(
-      message: "${userInput}라고 사용자가 답을 하였다. 이거슨 AI 답변이시다.",
-      isgoal: true, //우선은 다 선택 버튼이 보이도록 설정하였삼!!
-    );
-  }
-
   void scrollToBottom() {
-    // 최신 입력 (최신 말풍선)이 발생하면 자연스럽게 가장 아래로
+    // 최신 입력(최신 말풍선)이 발생하면 자연스럽게 가장 아래로
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (scrollController.hasClients) {
         scrollController.animateTo(
@@ -112,7 +116,7 @@ class _ChatPageState extends State<ChatPage> {
                     child: TextField(
                       controller: controller,
                       decoration: InputDecoration(
-                        hintText: "Write text",
+                        hintText: "Type a message here...",
                         filled: true,
                         fillColor: Colors.white,
                         contentPadding: const EdgeInsets.symmetric(
@@ -140,12 +144,4 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
-}
-
-// AI로 받는 메세지 - 백엔드로부터 받아옴 이후 수정 예정!!
-class AIResponse {
-  final String message;
-  final bool isgoal;
-
-  AIResponse({required this.message, required this.isgoal});
 }
