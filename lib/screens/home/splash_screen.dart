@@ -16,14 +16,14 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     // 2초 후에 Layout() 화면으로 이동
     Timer(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const Layout()),
-      );
       // Navigator.pushReplacement(
       //   context,
-      //   MaterialPageRoute(builder: (context) => const LoginScreen()),
-      // ); //이건 로그인화면부터 보이게 하는 거!!
+      //   MaterialPageRoute(builder: (context) => const Layout()),
+      // );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginScreen()),
+      ); //이건 로그인화면부터 보이게 하는 거!!
     });
   }
 
