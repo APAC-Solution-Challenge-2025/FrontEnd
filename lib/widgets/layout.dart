@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'navibar.dart';
 import '../screens/home/home.dart';
 import '../screens/main_tabs/report/report_main_page.dart';
-import '../screens/main_tabs/page2.dart';
+import '../screens/main_tabs/chat_page.dart';
 
 class Layout extends StatefulWidget {
   const Layout({super.key});
@@ -17,7 +17,7 @@ class _LayoutState extends State<Layout> {
   final List<Widget> _pages = const [
     HomePage(),
     ReportMainPage(),
-    Page2(),
+    ChatPage(),
   ];
 
   void _onTap(int index) {
