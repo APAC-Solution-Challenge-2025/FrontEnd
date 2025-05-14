@@ -22,8 +22,8 @@ class _SplashScreenState extends State<SplashScreen> {
       // );
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-      ); //이건 로그인화면부터 보이게 하는 거!!
+        MaterialPageRoute(builder: (context) => const Layout()),
+      );
     });
   }
 

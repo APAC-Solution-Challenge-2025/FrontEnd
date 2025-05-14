@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final List<Map<String, dynamic>> boxData = [
   {"label": "Box 1", "isComplete": true},
@@ -66,10 +68,8 @@ class HomePage extends StatelessWidget {
                 Expanded(child: Container(color: const Color(0xFFFFFAF6))),
               ],
             ),
-
-            // 첫 번째 박스 (위쪽에 위치)
             Positioned(
-              top: screenHeight * 0.2,
+              top: screenHeight * 0.17,
               child: GestureDetector(
                 onTap: () {
                   Navigator.of(context).pushNamed('/calendarDetail');
@@ -114,9 +114,16 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ),
-
             Positioned(
-              top: screenHeight * 0.4,
+              top: screenHeight * 0.35,
+              left: screenWidth * 0.05,
+              child: const Text(
+                "Today for Me",
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Positioned(
+              top: screenHeight * 0.38,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: boxData.map((data) {
@@ -127,6 +134,54 @@ class HomePage extends StatelessWidget {
                         _buildBox(context, data["label"], data["isComplete"]),
                   );
                 }).toList(),
+              ),
+            ),
+            Positioned(
+              top: screenHeight * 0.6,
+              child: SizedBox(
+                width: screenWidth * 0.9,
+                height: screenHeight * 0.18,
+                child: CarouselSlider(
+                  options: CarouselOptions(
+                    height: screenHeight * 0.2,
+                    viewportFraction: 1.0, // 컨테이너 내부에서만 슬라이드 가능
+                    autoPlay: true,
+                    enlargeCenterPage: false,
+                  ),
+                  items: [
+                    {
+                      "url": "https://img.youtube.com/vi/IjyZoGbFXuk/0.jpg",
+                      "video": "https://www.youtube.com/watch?v=IjyZoGbFXuk"
+                    },
+                    {
+                      "url": "https://img.youtube.com/vi/iA1pUIw5ZHM/0.jpg",
+                      "video": "https://www.youtube.com/watch?v=iA1pUIw5ZHM"
+                    },
+                    {
+                      "url": "https://img.youtube.com/vi/Yt8wMO7hFGw/0.jpg",
+                      "video": "https://www.youtube.com/watch?v=Yt8wMO7hFGw"
+                    },
+                  ].map((item) {
+                    return GestureDetector(
+                      onTap: () async {
+                        if (item["video"]!.isNotEmpty) {
+                          final Uri url = Uri.parse(item["video"]!);
+                          if (await canLaunchUrl(url)) {
+                            await launchUrl(url);
+                          } else {
+                            throw "Could not launch ${item["video"]}";
+                          }
+                        }
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: item["url"]!.startsWith("http")
+                            ? Image.network(item["url"]!, fit: BoxFit.cover)
+                            : Image.asset(item["url"]!, fit: BoxFit.cover),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
             ),
           ],
