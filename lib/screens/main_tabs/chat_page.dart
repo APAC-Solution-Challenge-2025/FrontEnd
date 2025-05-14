@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '/../widgets/chat_bubble.dart';
-import '/provider/chat_api.dart';
+import '../../api/chat_api.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({super.key});
