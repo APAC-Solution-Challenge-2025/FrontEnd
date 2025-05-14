@@ -6,7 +6,6 @@ import 'provider/notification_provider.dart';
 import 'package:provider/provider.dart';
 import 'screens/home/splash_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'screens/home/splash_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,8 +32,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginScreen(),
-      // home: const SplashScreen(), // 초기 화면 설정
+      home: const SplashScreen(), // 초기 화면 설정
       routes: AppRoutes.routes, // routes.dart 파일에서 설정한 경로를 가져오기
     );
   }
