@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 
 class ChatApi {
   final String server =
-      'https://spring-backend-619167511861.asia-northeast3.run.app'; // 진짜 URL로 바꿔
+      'https://spring-backend-619167511861.asia-northeast3.run.app';
   final Map<String, String> headers = {
     'Content-Type': 'application/json',
   };
