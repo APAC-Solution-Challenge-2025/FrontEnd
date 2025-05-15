@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../../../provider/calendar_data.dart';
+import '../../../provider/calendar_provider.dart';
 
 class ReportMainPage extends StatefulWidget {
   const ReportMainPage({super.key});
@@ -15,7 +15,7 @@ class _ReportMainPageState extends State<ReportMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final calendarData = Provider.of<CalendarData>(context);
+    final calendarData = Provider.of<CalendarProvider>(context);
 
     DateTime now = selectedDate;
     int days = daysInMonth(now);
@@ -53,6 +53,11 @@ class _ReportMainPageState extends State<ReportMainPage> {
                 setState(() {
                   selectedDate = DateTime.now();
                 });
+                final provider = context.read<CalendarProvider>();
+                provider.fetchCalendarData(
+                year: DateTime.now().year, 
+                month: DateTime.now().month
+                );
               },
               icon: const Icon(Icons.today, size: 18),
               label: const Text(
@@ -443,8 +448,13 @@ class _ReportMainPageState extends State<ReportMainPage> {
                 ),
               ),
               onPressed: () {
-                Navigator.of(context).pop(DateTime(tempYear, tempMonth, 1));
-              },
+                final provider = context.read<CalendarProvider>();
+                provider.fetchCalendarData(
+                year: selectedDate.year, 
+                month: selectedDate.month
+              );
+              Navigator.of(context).pop(DateTime(tempYear, tempMonth, 1));
+            },
             ),
           ],
         );
