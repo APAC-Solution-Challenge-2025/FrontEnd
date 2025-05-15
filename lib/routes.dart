@@ -10,7 +10,7 @@ class AppRoutes {
     '/home': (context) => const HomePage(),
     '/settings': (context) => const SettingPage(),
     '/calendar': (context) => const ReportMainPage(),
-    '/calendarDetail': (context) => const ReportDetailPage(),
+    '/calendarDetail': (context) => ReportDetailPage(),
     '/chat': (context) => ChatPage(),
   };
 }
