@@ -144,22 +144,22 @@ class HomePage extends StatelessWidget {
                 child: CarouselSlider(
                   options: CarouselOptions(
                     height: screenHeight * 0.2,
-                    viewportFraction: 1.0, // 컨테이너 내부에서만 슬라이드 가능
+                    viewportFraction: 0.6, // 컨테이너 내부에서만 슬라이드 가능
                     autoPlay: true,
                     enlargeCenterPage: false,
                   ),
                   items: [
                     {
-                      "url": "https://img.youtube.com/vi/IjyZoGbFXuk/0.jpg",
-                      "video": "https://www.youtube.com/watch?v=IjyZoGbFXuk"
+                      "url": "https://img.youtube.com/vi/DoIVuR25Yqo/0.jpg",
+                      "video": "https://www.youtube.com/watch?v=DoIVuR25Yqo"
                     },
                     {
-                      "url": "https://img.youtube.com/vi/iA1pUIw5ZHM/0.jpg",
-                      "video": "https://www.youtube.com/watch?v=iA1pUIw5ZHM"
+                      "url": "https://img.youtube.com/vi/wRtvOwBXRBw/0.jpg",
+                      "video": "https://www.youtube.com/watch?v=wRtvOwBXRBw"
                     },
                     {
-                      "url": "https://img.youtube.com/vi/Yt8wMO7hFGw/0.jpg",
-                      "video": "https://www.youtube.com/watch?v=Yt8wMO7hFGw"
+                      "url": "https://img.youtube.com/vi/ZyMQPoMTu_c/0.jpg",
+                      "video": "https://www.youtube.com/watch?v=ZyMQPoMTu_c"
                     },
                   ].map((item) {
                     return GestureDetector(

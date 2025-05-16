@@ -11,6 +11,6 @@ class AppRoutes {
     '/settings': (context) => const SettingPage(),
     '/calendar': (context) => const ReportMainPage(),
     '/calendarDetail': (context) => const ReportDetailPage(),
-    '/chat': (context) => ChatPage(), //원래 Page2엿던 것
+    '/chat': (context) => ChatPage(),
   };
 }
