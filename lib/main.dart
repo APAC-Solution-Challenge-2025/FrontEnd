@@ -21,6 +21,7 @@ Future<void> main() async {
         ChangeNotifierProvider(create: (context) => CalendarProvider()),
         ChangeNotifierProvider(create: (context) => NotificationProvider()),
         ChangeNotifierProvider(create: (context) => ReportProvider()),
+        ChangeNotifierProvider(create: (_) => UserInputDataProvider()),
 
       ],
       child: const MyApp(),
