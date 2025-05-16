@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
 import 'login_body_change_info.dart';
+import 'package:provider/provider.dart';
+import 'package:apac_solution_challenge/provider/user_input_data_provider.dart';
+import 'package:apac_solution_challenge/api/user_input_data_api.dart';
 
 class LoginBirthMethodPage extends StatefulWidget {
   const LoginBirthMethodPage({super.key});
@@ -110,13 +113,35 @@ class _LoginBirthMethodPageState extends State<LoginBirthMethodPage> {
                     vertical: MediaQuery.of(context).size.height * 0.01,
                     horizontal: MediaQuery.of(context).size.width * 0.05,
                   ),
-                  child: nextButton(context, BodyInfoScreen(), onPressed: () {
-                    if (selectedMethod != null) {
-                      print('보낼 날짜: $selectedMethod');
-                      //이후 프린트는 삭제 예정
-                      //이후 이 블록 내에 백엔드로 넘겨주는 코드 작성 예정!
-                    }
-                  }),
+                  child: nextButton(
+                    context,
+                    BodyInfoScreen(),
+                    onPressed: () async {
+                      Provider.of<UserInputDataProvider>(context, listen: false)
+                          .setBirthMethod([selectedMethod!]);
+                      final api = UserDataApi();
+
+                      final provider = Provider.of<UserInputDataProvider>(
+                          context,
+                          listen: false);
+                      try {
+                        await api.sendUserData(
+                          email: provider.userId,
+                          data: provider.data,
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Succeed!')),
+                        );
+                        print(
+                            'email=${provider.userId}\n body=${provider.data.toJson()}');
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('Failed! $e')),
+                        );
+                      }
+                    },
+                  ),
                 )
             ],
           )
