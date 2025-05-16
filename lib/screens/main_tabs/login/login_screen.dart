@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'dart:convert';
 import 'login_user_select_page.dart';
+import 'package:provider/provider.dart';
+import 'package:apac_solution_challenge/provider/user_input_data_provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -40,7 +42,10 @@ class LoginScreen extends StatelessWidget {
                     width: 24,
                     height: 24,
                   ),
-                  label: const Text('Sign in with Google'),
+                  label: const Text(
+                    'Sign in with Google',
+                    style: TextStyle(fontSize: 15),
+                  ),
                   style: TextButton.styleFrom(
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
@@ -85,6 +90,10 @@ class LoginScreen extends StatelessWidget {
                             await _storage.write(key: 'email', value: email);
                             await _storage.write(key: 'name', value: name);
 
+                            Provider.of<UserInputDataProvider>(context,
+                                    listen: false)
+                                .setUserId(email);
+
                             print("환영합니다 $name");
 
                             Navigator.pushReplacement(
@@ -113,8 +122,9 @@ class LoginScreen extends StatelessWidget {
                   height: 50,
                   child: SignInWithAppleButton(
                     onPressed: () {
-                      // 여기에 애플 로그인 Oauth관련 코드
-                      // 만일 성공한다면 넘어가도록 추후 구현 예정정
+                      Provider.of<UserInputDataProvider>(context, listen: false)
+                          .setUserId('user@apple.com');
+
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -149,8 +159,8 @@ class LoginScreen extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                   ),
                   onPressed: () {
-                    // 여기에 페이스북 Oauth로그인 관련 코드
-                    // 만일 성공한다면 넘어가도록 추후 구현 예정정
+                    Provider.of<UserInputDataProvider>(context, listen: false)
+                        .setUserId('user@facebook.com');
                     Navigator.push(
                       context,
                       MaterialPageRoute(

@@ -6,6 +6,7 @@ import 'provider/notification_provider.dart';
 import 'package:provider/provider.dart';
 import 'screens/home/splash_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:apac_solution_challenge/provider/user_input_data_provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => CalendarData()),
         ChangeNotifierProvider(create: (_) => NotificationProvider()),
+        ChangeNotifierProvider(create: (_) => UserInputDataProvider()),
       ],
       child: const MyApp(),
     ),

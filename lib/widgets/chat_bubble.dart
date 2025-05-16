@@ -109,7 +109,7 @@ class AIBubble extends StatelessWidget {
               child: Row(
                 children: [
                   ElevatedButton(
-                      onPressed: () => onChoiceSelected?.call('accept'),
+                      onPressed: () => onChoiceSelected?.call('Accept'),
                       child: const Text(
                         'Accept',
                         style: TextStyle(color: Colors.black),
@@ -120,9 +120,9 @@ class AIBubble extends StatelessWidget {
                               borderRadius: BorderRadius.circular(20)))),
                   const SizedBox(width: 8),
                   ElevatedButton(
-                      onPressed: () => onChoiceSelected?.call('Revise'),
+                      onPressed: () => onChoiceSelected?.call('Decline'),
                       child: const Text(
-                        'Revise',
+                        'Decline',
                         style: TextStyle(color: Colors.black),
                       ),
                       style: ElevatedButton.styleFrom(

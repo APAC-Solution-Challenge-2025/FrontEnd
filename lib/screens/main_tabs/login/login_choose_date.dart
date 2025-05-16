@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:apac_solution_challenge/provider/user_input_data_provider.dart';
 
 class LoginChooseDate extends StatefulWidget {
   const LoginChooseDate({super.key});
@@ -115,10 +117,8 @@ class _LoginChooseDateState extends State<LoginChooseDate> {
                 context,
                 LoginBirthMethodPage(),
                 onPressed: () {
-                  print('보낼 날짜: $formattedDate');
-                  // 일시적으로 확인을 위해 print()문을 추가해두었습니다! 이후 삭제 예정
-                  // 이를 통해서 날짜 formattedDate에 저장
-                  // 추가적으로 백엔드로 보낼 코드 작성 예정...
+                  Provider.of<UserInputDataProvider>(context, listen: false)
+                      .setBirthDate([formattedDate!]);
                 },
               ),
             ),

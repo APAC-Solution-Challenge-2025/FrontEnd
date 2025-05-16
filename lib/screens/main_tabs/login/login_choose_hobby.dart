@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
 import 'login_health_check.dart';
+import 'package:provider/provider.dart';
+import 'package:apac_solution_challenge/provider/user_input_data_provider.dart';
 
 class InterestScreen extends StatefulWidget {
   const InterestScreen({super.key});
@@ -147,7 +149,15 @@ class _InterestScreenState extends State<InterestScreen> {
                   if (selectedInterests.length >= 3)
                     Padding(
                       padding: const EdgeInsets.fromLTRB(0, 90, 0, 0),
-                      child: nextButton(context, LoginHealthCheck()),
+                      child: nextButton(
+                        context,
+                        LoginHealthCheck(),
+                        onPressed: () {
+                          Provider.of<UserInputDataProvider>(context,
+                                  listen: false)
+                              .setHobbies(selectedInterests.toList());
+                        },
+                      ),
                     )
                 ],
               ),

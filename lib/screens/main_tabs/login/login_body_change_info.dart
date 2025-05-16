@@ -1,6 +1,8 @@
 import 'package:apac_solution_challenge/widgets/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
+import 'package:provider/provider.dart';
+import 'package:apac_solution_challenge/provider/user_input_data_provider.dart';
 
 class BodyInfoScreen extends StatefulWidget {
   const BodyInfoScreen({super.key});
@@ -22,29 +24,13 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
   Future<void> loadBodyInfoText() async {
     await Future.delayed(const Duration(seconds: 1));
     const dummy = '''
-테스트용 텍스트입니다
-1.
-2.
-3.
-4.
-5.
-6.
-7.
-8.
-9.
-10.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-.
-30
+Week 3 Postpartum
+
+Around this time, wrist and lower back pain, as well as fatigue, are common.
+You may experience postpartum tendonitis, especially in the wrists.
+Try supporting your baby with your whole arm and do light stretches when possible.
+Mood swings can also happen—and that’s completely normal.
+ How about taking a small moment for yourself today, with a warm cup of tea?
 ''';
 
     setState(() {
@@ -76,7 +62,7 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
                 thickness: 4,
                 child: SingleChildScrollView(
                   child: Text(
-                    bodyInfoText ?? "ERROR", // 만약에 넘어오는 값이 널일 경우를 위한...
+                    bodyInfoText ?? "loading .... ",
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontSize: 18,
@@ -91,7 +77,10 @@ class _BodyInfoScreenState extends State<BodyInfoScreen> {
           Positioned(
             bottom: 40,
             right: 20,
-            child: nextButton(context, const Layout()),
+            child: nextButton(
+              context,
+              const Layout(),
+            ),
           ),
         ],
       ),

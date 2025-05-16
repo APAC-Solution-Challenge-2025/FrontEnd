@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
 import 'login_choose_date.dart';
+import 'package:provider/provider.dart';
+import 'package:apac_solution_challenge/provider/user_input_data_provider.dart';
 
 class LoginHealthCheck extends StatefulWidget {
   const LoginHealthCheck({super.key});
@@ -19,14 +21,14 @@ class _LoginHealthCheckState extends State<LoginHealthCheck> {
     ['I’m okay', 'I feel a bit relaxed', 'I can hang in there'],
   ];
 
-  final Set<String> selectedHealth = {};
+  final Set<String> selectedCondition = {};
 
   void toggleSelection(String label) {
     setState(() {
-      if (selectedHealth.contains(label)) {
-        selectedHealth.remove(label);
+      if (selectedCondition.contains(label)) {
+        selectedCondition.remove(label);
       } else {
-        selectedHealth.add(label);
+        selectedCondition.add(label);
       }
     });
   }
@@ -99,7 +101,8 @@ class _LoginHealthCheckState extends State<LoginHealthCheck> {
                                       horizontal: 6.0),
                                   child: selectButton(
                                     label: label,
-                                    isSelected: selectedHealth.contains(label),
+                                    isSelected:
+                                        selectedCondition.contains(label),
                                     onTap: () => toggleSelection(label),
                                   ),
                                 );
@@ -113,14 +116,20 @@ class _LoginHealthCheckState extends State<LoginHealthCheck> {
                 ),
 
                 // next 버튼
-                if (selectedHealth.isNotEmpty)
+                if (selectedCondition.isNotEmpty)
                   Align(
                     alignment: Alignment.bottomRight,
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 30),
-                      //추후 이러한 방식으로 버튼 위치 고정...수정 예정
-                      child: nextButton(context, LoginChooseDate()),
-                      // 우선 Homepage로 가는 것으로 임시 설정 이후 수정 예정
+                      child: nextButton(
+                        context,
+                        LoginChooseDate(),
+                        onPressed: () {
+                          Provider.of<UserInputDataProvider>(context,
+                                  listen: false)
+                              .setCondition(selectedCondition.toList());
+                        },
+                      ),
                     ),
                   ),
               ],

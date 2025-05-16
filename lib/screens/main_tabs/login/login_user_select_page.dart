@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:apac_solution_challenge/widgets/buttons.dart';
 import 'login_choose_hobby.dart';
+import 'package:provider/provider.dart';
+import 'package:apac_solution_challenge/provider/user_input_data_provider.dart';
 
 class LoginUserSelect extends StatefulWidget {
   const LoginUserSelect({super.key});
@@ -104,11 +106,9 @@ class _LoginUserSelectState extends State<LoginUserSelect> {
                     horizontal: MediaQuery.of(context).size.width * 0.05,
                   ),
                   child: nextButton(context, InterestScreen(), onPressed: () {
-                    if (userType != null) {
-                      print('user type: $userType');
-                      //이후 프린트는 삭제 예정
-                      //이후 이 블록 내에 백엔드로 넘겨주는 코드 작성 예정!
-                    }
+                    final provider = Provider.of<UserInputDataProvider>(context,
+                        listen: false);
+                    provider.setUserType([userType!]);
                   }),
                 )
             ],
