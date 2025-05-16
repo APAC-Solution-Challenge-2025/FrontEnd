@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'dart:math';
+import 'package:provider/provider.dart';
+import '../../../provider/report_provider.dart';
 
 class ReportDetailPage extends StatefulWidget {
   const ReportDetailPage({super.key});
@@ -10,39 +12,59 @@ class ReportDetailPage extends StatefulWidget {
 }
 
 class _ReportDetailPageState extends State<ReportDetailPage> {
+  late ReportProvider reportProvider;
   DateTime? selectedDate;
-  Map<int, bool> expandedStates = {}; // 클릭 여부
-  List<bool> completedStates = [false, false, false]; // 목표 완료 여부부
-
-  void toggleCompletion(int index) {
-    setState(() {
-      completedStates[index] = !completedStates[index];
-    });
-  }
-
+  Map<int, bool> expandedStates = {};
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     selectedDate = ModalRoute.of(context)?.settings.arguments as DateTime?;
+    reportProvider = Provider.of<ReportProvider>(context, listen: false);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Map<String, dynamic> responseData = {
+        "date": "2025-05-16",
+        "healthStatus": [
+          {
+            "content": "Your overall health appears to be stable, with no significant deviations observed in your recent biometric data, including heart rate, sleep duration, and general activity levels.",
+            "status": 0
+          },
+          {
+            "content": "You should pay attention to specific symptoms such as recurring fatigue, mild headaches in the late afternoon, and slight difficulty concentrating, which could be early signs of stress or dehydration.",
+            "status": 1
+          },
+          {
+            "content": "There are potentially dangerous health conditions noted, including sudden spikes in blood pressure during rest and irregular breathing patterns during sleep, which may require medical consultation.",
+          },
+        ],
+        "recommendedSolution": "To improve your overall well-being, consider establishing a consistent sleep schedule that allows for at least 7 to 8 hours of restful sleep each night. Increase your daily water intake to stay properly hydrated, aiming for at least 2 liters per day, and incorporate regular low-impact physical activities such as walking, stretching, or yoga. Additionally, try to reduce stress through mindfulness practices, maintain a balanced diet rich in fruits and vegetables, and avoid excessive screen time before bedtime to enhance sleep quality.",
+        "goals": [
+          {"content": "goal1", "achieved": true},
+          {"content": "goal2", "achieved": false},
+          {"content": "goal3", "achieved": true},
+        ],
+        
+      };
+
+
+      if (mounted) {
+        // 날짜 비교
+        final reportDate = DateTime.tryParse(responseData["date"]);
+        final sameDate = reportDate != null &&
+            selectedDate != null &&
+            reportDate.year == selectedDate!.year &&
+            reportDate.month == selectedDate!.month &&
+            reportDate.day == selectedDate!.day;
+
+        if (sameDate) {
+          reportProvider.updateReportData(responseData);
+        } else {
+          reportProvider.clearReportData(); // 날짜가 다르면 데이터 클리어
+        }
+      }
+    });
   }
-
-  // 각 컨테이너에 대한 Mock 데이터
-  final Map<int, String> mockData = {
-    0: "This is a detailed explanation of the health status, covering various factors such as heart rate, blood pressure, oxygen saturation, and stress levels. Additionally, it considers recent lifestyle changes and medical history to provide a personalized assessment of overall well-being. Monitoring these health indicators regularly can help detect early warning signs and improve long-term health outcomes.",
-    
-    1: "Conditions that require attention: Based on recent analysis, an increasing trend in stress levels has been observed, potentially affecting sleep patterns and overall mental health. Prolonged stress may lead to various complications, including hypertension and anxiety disorders. It is highly recommended to incorporate daily relaxation techniques, maintain hydration levels, and adjust physical activity accordingly for better stress management.",
-
-    2: "Potentially dangerous health conditions: There has been a noticeable fluctuation in cardiovascular readings that may indicate underlying risks. Symptoms such as irregular heartbeat, dizziness, or chest discomfort should not be ignored. Consulting a physician for further diagnostic tests like ECG or blood tests is advised to rule out critical health issues. Preventive measures include maintaining a balanced diet, regular exercise, and reducing excessive caffeine intake.",
-
-    3: "Recommended solutions and next steps: To improve the current health status, engaging in mindfulness exercises, meditation, or breathing techniques can be beneficial for reducing stress levels. A well-balanced diet rich in essential nutrients and antioxidants should be prioritized. Drinking sufficient water, following a consistent sleep schedule, and avoiding excessive screen time are additional steps toward enhancing physical and mental well-being."
-  };
-
-  List<String> todoItems = [
-  "Complete the Flutter project",
-  "Write project documentation, ensuring that all technical details, installation guides, API references, and system requirements are clearly outlined. This will help users and developers understand the project better and ease integration with other systems.",
-  "Prepare for final review by compiling feedback from stakeholders, adjusting the user interface based on usability testing results, refining the core functionalities to improve performance, and ensuring all edge cases are handled effectively. The review process should also include a thorough analysis of the overall user experience, responsiveness across multiple devices, security improvements, and final refinements before deployment."
-  ];
 
   String formatDateWithSuffix(DateTime date) {
     final day = date.day;
@@ -60,9 +82,8 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
   @override
   Widget build(BuildContext context) {
     String formattedDate =
-        selectedDate != null ? formatDateWithSuffix(selectedDate!) : "날짜 없음";
+        selectedDate != null ? formatDateWithSuffix(selectedDate!) : "no date";
 
-    final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -70,43 +91,30 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFFFFAF6),
         elevation: 0,
-        flexibleSpace: Container( 
-          decoration: const BoxDecoration(
-            color: Color(0xFFFFFAF6),
-          ),
-        ),
-      title: Text(formattedDate)
+        title: Text(formattedDate),
       ),
-      body: SingleChildScrollView(
-        child: Align(
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: screenWidth * 0.05),
-                    child: const Text(
-                      "Status",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
+      body: Consumer<ReportProvider>(
+        builder: (context, reportProvider, child) {
+          final hasData = reportProvider.healthStatus.isNotEmpty ||
+              reportProvider.goals.isNotEmpty ||
+              reportProvider.recommendedSolution.isNotEmpty;
+
+          if (!hasData) {
+            return const Center(
+              child: Text(
+                    "No report available for this date.",
+                    style: TextStyle(fontSize: 18),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(right: screenWidth * 0.05),
-                    child: const Text(
-                      "Edit+",
-                      style: TextStyle(fontSize: 18, color: Colors.grey),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
+            );
+          }
+
+          return SingleChildScrollView(
+            child: Align(
+              alignment: Alignment.center,
+              child: Column(
                 children: [
+                  _buildSectionTitle(screenWidth, "Status"),
                   _buildCustomContainer(
-                    screenHeight * 0.05,
                     null,
                     "Summary of health status.",
                     0,
@@ -114,10 +122,14 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
                     const Color(0xFFD9D9D9),
                     Colors.white,
                     index: 0,
+                    isExpanded: expandedStates[0] ?? false,
+                    onTap: () {
+                      setState(() {
+                        expandedStates[0] = !(expandedStates[0] ?? false);
+                      });
+                    },
                   ),
-                  const SizedBox(height: 1),
                   _buildCustomContainer(
-                    screenHeight * 0.08,
                     null,
                     "Summary of health conditions that require attention.",
                     0,
@@ -125,10 +137,14 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
                     const Color(0xFFF2ED87),
                     Colors.white,
                     index: 1,
+                    isExpanded: expandedStates[1] ?? false,
+                    onTap: () {
+                      setState(() {
+                        expandedStates[1] = !(expandedStates[1] ?? false);
+                      });
+                    },
                   ),
-                  const SizedBox(height: 1),
                   _buildCustomContainer(
-                    screenHeight * 0.08,
                     null,
                     "Summary of potentially dangerous health conditions.",
                     0,
@@ -136,11 +152,15 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
                     const Color(0xFFE5BCBC),
                     Colors.white,
                     index: 2,
+                    isExpanded: expandedStates[2] ?? false,
+                    onTap: () {
+                      setState(() {
+                        expandedStates[2] = !(expandedStates[2] ?? false);
+                      });
+                    },
                   ),
-                  const SizedBox(height: 1),
                   _buildCustomContainer(
-                    screenHeight * 0.15,
-                    "Recommended solution",
+                    "Recommended solution:",
                     "A comprehensive assessment of the current health status and guidance on appropriate recommendations.",
                     18,
                     15,
@@ -148,76 +168,75 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
                     const Color(0xFFE5CEBC),
                     hasImage: true,
                     index: 3,
+                    isExpanded: expandedStates[3] ?? false,
+                    onTap: () {
+                      setState(() {
+                        expandedStates[3] = !(expandedStates[3] ?? false);
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  _buildSectionTitle(screenWidth, "Today for Me"),
+                  ...List.generate(
+                    reportProvider.goals.length,
+                    (index) {
+                      final goal = reportProvider.goals[index];
+                      return buildTodoItem(goal["content"], index);
+                    },
                   ),
                 ],
               ),
-              const SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: screenWidth * 0.05),
-                    child: const Text(
-                      "Today for Me",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: screenWidth * 0.05),
-                    child: const Text(
-                      "Edit+",
-                      style: TextStyle(fontSize: 18, color: Colors.grey),
-                    ),
-                  ),
-                ],
-              ),
-              Column(
-                children: todoItems.asMap().entries.map((entry) {
-                          int index = entry.key;
-                          String text = entry.value;
-                          return buildTodoItem(text, index);
-                        }).toList(),
-              ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(double screenWidth, String title) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title,
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const Text("Edit+",
+              style: TextStyle(fontSize: 18, color: Colors.grey)),
+        ],
       ),
     );
   }
 
   Widget _buildCustomContainer(
-    double height,
     String? title,
-    String description,
+    String paramDescription,
     double titleSize,
     double descSize,
     Color? circleColor,
     Color bgColor, {
     bool hasImage = false,
     required int index,
+    required bool isExpanded,
+    required VoidCallback onTap,
   }) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final healthStatus = reportProvider.healthStatus;
+    final recommendedSolution = reportProvider.recommendedSolution;
 
-    int lineCount = (mockData[index]?.split('\n').length ?? 1);
-    double baseExpansion = 40.0;
-    double textExpansion = (mockData[index]?.length ?? 50) * 0.45; 
-    double additionalHeight = (lineCount * 25.0 + textExpansion + baseExpansion).clamp(50, 300);
+    String expandedText = (index == 3)
+        ? recommendedSolution
+        : (index < healthStatus.length ? (healthStatus[index]["content"] ?? "") : "");
 
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          expandedStates[index] = !(expandedStates[index] ?? false); // 클릭 시 컨테이너 확장/축소
-        });
-      },
+      onTap: onTap,
       child: AnimatedSize(
-        duration: const Duration(milliseconds: 300), // 애니메이션
+        duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
         child: Container(
           width: screenWidth * 0.9,
-          height: expandedStates[index] ?? false ? height + additionalHeight : height,
           margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             color: bgColor,
             borderRadius: BorderRadius.circular(10),
@@ -231,87 +250,66 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
             ],
           ),
           child: Stack(
+            clipBehavior: Clip.none,
             children: [
-              Padding(
-                padding: EdgeInsets.only(
-                  left: screenWidth * 0.05,
-                  right: hasImage ? 60 : screenWidth * 0.05,
-                  top: 15,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (circleColor != null)
+                    Container(
+                      width: 12,
+                      height: 12,
+                      margin: const EdgeInsets.only(right: 10, top: 4),
+                      decoration: BoxDecoration(
+                        color: circleColor,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        if (circleColor != null)
-                        Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: CircleAvatar(
-                              backgroundColor: circleColor,
-                              radius: 6,
-                            ),
+                        if (title != null)
+                          Text(title,
+                              style: TextStyle(
+                                  fontSize: titleSize,
+                                  fontWeight: FontWeight.bold)),
+                        if (title != null) const SizedBox(height: 8),
+                        Text(paramDescription,
+                            style: TextStyle(fontSize: descSize)),
+                        if (isExpanded) ...[
+                          const SizedBox(height: 10),
+                          AnimatedOpacity(
+                            duration: const Duration(milliseconds: 300),
+                            opacity: isExpanded ? 1.0 : 0.0,
+                            child: Text(expandedText,
+                                style: TextStyle(
+                                    fontSize: descSize,
+                                    color: Colors.grey[700])),
                           ),
-                        ),
-                        Expanded(
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                if (title != null)
-                                  TextSpan(
-                                    text: "$title: \n\n",
-                                    style: TextStyle(
-                                        fontSize: titleSize,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.black),
-                                  ),
-                                TextSpan(
-                                  text: description,
-                                  style: TextStyle(fontSize: descSize, color: Colors.black),
-                                ),
-                              ],
-                            ),
-                          ),
-                          ),
-                        ),
+                        ]
                       ],
                     ),
-                    if (expandedStates[index] ?? false)
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical:10,horizontal:20),
-                        child: AnimatedOpacity(
-                          duration: const Duration(milliseconds: 300),
-                          opacity: expandedStates[index]! ? 1.0 : 0.0,
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              mockData[index] ?? "no data",
-                              style: const TextStyle(fontSize: 14, color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
+                  ),
+                  if (hasImage) const SizedBox(width: 110),
+                ],
               ),
               if (hasImage)
-                Visibility(
-                  visible: !(expandedStates[index] ?? false), // 클릭했을 때 이미지 사라짐
-                  child: Positioned(
-                    bottom: -15,
-                    right: -25,
-                    child: Transform.rotate(
-                      angle: -pi / 7,
-                      child: Image.asset(
-                        "assets/images/hug_me.png",
-                        width: 130,
-                        height: 130,
-                        fit: BoxFit.contain,
+                Positioned(
+                  bottom: -25,
+                  right: -40,
+                  child: Visibility(
+                    visible: !isExpanded,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Transform.rotate(
+                        angle: -pi / 7,
+                        child: Image.asset(
+                          "assets/images/hug_me.png",
+                          width: 130,
+                          height: 130,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                   ),
@@ -325,44 +323,51 @@ class _ReportDetailPageState extends State<ReportDetailPage> {
 
   Widget buildTodoItem(String text, int index) {
     final screenWidth = MediaQuery.of(context).size.width;
-    return GestureDetector(
-      onTap: () => toggleCompletion(index),
-      child: Container(
-        width: screenWidth * 0.9,
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
-        margin: const EdgeInsets.symmetric(vertical: 8),
-        decoration: BoxDecoration(
-          color: completedStates[index] ? const Color(0xffBEC5A4) : Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: const [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.3),
-              spreadRadius: 0.1,
-              blurRadius: 5,
-              offset: Offset(0, 2),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Icon(
-              completedStates[index] ? Icons.check_box : Icons.check_box_outline_blank,
-              color: completedStates[index] ? Colors.white : Colors.grey,
-              size: 20,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                text,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.black,
+
+    return Consumer<ReportProvider>(
+      builder: (context, provider, _) {
+        final isCompleted = provider.goals[index]["achieved"] as bool;
+
+        return GestureDetector(
+          onTap: () => provider.toggleGoalCompletion(index),
+          child: Container(
+            width: screenWidth * 0.9,
+            padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            margin: const EdgeInsets.symmetric(vertical: 8),
+            decoration: BoxDecoration(
+              color: isCompleted ? const Color(0xffBEC5A4) : Colors.white,
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.3),
+                  spreadRadius: 0.1,
+                  blurRadius: 5,
+                  offset: Offset(0, 2),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
+            child: Row(
+              children: [
+                Icon(
+                  isCompleted ? Icons.check_box : Icons.check_box_outline_blank,
+                  color: isCompleted ? Colors.white : Colors.grey,
+                  size: 20,
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Text(
+                    text,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

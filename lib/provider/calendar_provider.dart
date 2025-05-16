@@ -21,9 +21,8 @@ class CalendarDayData {
 class CalendarProvider with ChangeNotifier {
   final Map<String, CalendarDayData> _progressByDate = {};
 
-  Future<void> fetchCalendarData({required int year, required int month}) async {
-    final String apiUrl = dotenv.env['API_CALENDAR_IP']!;
-    final String jwtToken = dotenv.env['AUTH_TOKEN']!;
+  Future<void> fetchCalendarData({required String jwtToken, required int year, required int month}) async {
+    final String apiUrl = dotenv.env['API_CALENDAR_IP'] ?? "localhost";
 
     final Uri url = Uri.parse('http://$apiUrl:8080/api/calendar?year=$year&month=$month');
 
