@@ -55,6 +55,7 @@ class _ReportMainPageState extends State<ReportMainPage> {
                 });
                 final provider = context.read<CalendarProvider>();
                 provider.fetchCalendarData(
+                jwtToken: "ThisIsToken",
                 year: DateTime.now().year, 
                 month: DateTime.now().month
                 );
@@ -450,6 +451,7 @@ class _ReportMainPageState extends State<ReportMainPage> {
               onPressed: () {
                 final provider = context.read<CalendarProvider>();
                 provider.fetchCalendarData(
+                jwtToken: "ThisIsToken",
                 year: selectedDate.year, 
                 month: selectedDate.month
               );
